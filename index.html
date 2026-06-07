@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سؤال مخصص لحبيبتي</title>
+    <title>سؤال مخصص لحفصة</title>
     <style>
-        /* إعدادات الخلفية العامة */
         body {
-            background-color: #fff0f5; /* لون وردي ناعم جداً مريح للعين */
+            background-color: #fff0f5; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
@@ -19,7 +18,6 @@
             direction: rtl;
         }
 
-        /* كرت المحتوى الأساسي */
         .container {
             text-align: center;
             background: white;
@@ -29,6 +27,7 @@
             max-width: 85%;
             width: 340px;
             transition: all 0.5s ease;
+            z-index: 10;
         }
 
         h1 {
@@ -39,7 +38,6 @@
             font-weight: bold;
         }
 
-        /* حاوية الأزرار */
         .buttons {
             margin-top: 20px;
             position: relative;
@@ -47,13 +45,12 @@
             width: 100%;
         }
 
-        /* تصميم الأزرار الاحترافي */
         button {
             font-size: 18px;
             font-weight: bold;
             padding: 12px 30px;
             border: none;
-            border-radius: 50px; /* أزرار دائرية ناعمة */
+            border-radius: 50px; 
             cursor: pointer;
             position: absolute;
             transition: all 0.2s ease;
@@ -61,79 +58,103 @@
         }
 
         #yesBtn {
-            background-color: #4caf50; /* أخضر مريح */
+            background-color: #4caf50; 
             color: white;
             right: 15%;
         }
 
         #noBtn {
-            background-color: #f44336; /* أحمر ناعم */
+            background-color: #f44336; 
             color: white;
             left: 15%;
         }
 
         img {
-            width: 200px;
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
             border-radius: 15px;
         }
 
-        /* شاشة المفاجأة المخفية */
+        /* شاشة النجاح والكلام */
         .success-screen {
             display: none;
             text-align: center;
             animation: fadeIn 0.8s ease forwards;
+            z-index: 10;
         }
 
         .success-screen h2 {
             color: #ff477e;
-            font-size: 28px;
+            font-size: 26px;
             line-height: 1.6;
             margin-top: 20px;
+            font-weight: bold;
         }
 
-        /* تأثير ظهور شاشة النجاح */
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* تأثير حركة القلوب الخلفية */
+        /* قلوب الانفجار الكبيرة أول ما تضغط نعم */
+        .burst-heart {
+            position: fixed;
+            color: #ff477e;
+            font-size: 35px;
+            user-select: none;
+            z-index: 9999;
+            pointer-events: none;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* القلوب الصغيرة اللطيفة المستمرة بالخلفية */
         .floating-heart {
             position: fixed;
             color: #ff477e;
-            font-size: 24px;
+            font-size: 18px;
             animation: floatUp 4s linear infinite;
             opacity: 0;
-            z-index: 999;
+            z-index: 5;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+            0% { transform: translateY(100vh) scale(0); opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
 <div class="container" id="mainContainer">
-    <img src="https://i.postimg.cc/brv4g7G6/cat-heart.gif" alt="Cute Cat">
-    <h1>تحبيني لو لا؟ 😉</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_March_2010-1.jpg" alt="Cute Cat">
+    <h1>حفصة تحبيني؟ 😉❤️</h1>
     <div class="buttons">
-        <button id="yesBtn" onclick="showLove()">نعم</button>
+        <button id="yesBtn" onclick="triggerLoveEffects()">نعم</button>
         <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">لا</button>
     </div>
 </div>
 
 <div class="success-screen" id="successScreen">
-    <img src="https://i.postimg.cc/pX9p8Kx1/cat-hug.gif" alt="Cute Hug" style="width: 220px;">
-    <h2>كنت عارف أصلاً! 😉❤️<br>حتى أنا أحبكِ وايد ✨</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png" alt="Love Heart" style="width: 150px; height: 150px; object-fit: contain;">
+    <h2>كنت عارف أصلاً! 😉❤️<br>حتى أنا احبك يا قلبي ✨</h2>
 </div>
 
 <script>
-    // وظيفة هرب زر "لا" الذكي
+    // وظيفة هروب زر لا
     function moveButton() {
         const noBtn = document.getElementById('noBtn');
-        // حسابات تمنع خروج الزر عن حواف الشاشة تماماً
         const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40);
         const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40);
         
@@ -142,26 +163,63 @@
         noBtn.style.top = y + 'px';
     }
 
-    // وظيفة إظهار المفاجأة الرومانسية عند الضغط على نعم
-    function showLove() {
-        // إخفاء الشاشة الأولى وإظهار شاشة الحب
-        document.getElementById('mainContainer').style.display = 'none';
-        document.getElementById('successScreen').style.display = 'block';
-        
-        // تشغيل تأثير المطر من القلوب المتطايرة بالخلفية
-        setInterval(createHeart, 300);
+    // تشغيل التأثيرات عند الضغط على نعم
+    function triggerLoveEffects() {
+        // 1. تشغيل انفجار القلوب القوي فوراً
+        createHeartBurst();
+
+        // 2. إخفاء الشاشة الأولى وإظهار شاشة الكلام بعد ثانيتين من الانفجار
+        setTimeout(() => {
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('successScreen').style.display = 'block';
+            
+            // 3. تشغيل القلوب الصغيرة الهادئة بالخلفية باستمرار
+            setInterval(createBackgroundHeart, 400);
+        }, 1200);
     }
 
-    // صنع قلوب متحركة عشوائية في الخلفية
-    function createHeart() {
+    // تأثير انفجار قلوب كثيرة تغطي الشاشة وتختفي
+    function createHeartBurst() {
+        const totalHearts = 50; // عدد القلوب في الانفجار
+        for (let i = 0; i < totalHearts; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('burst-heart');
+            heart.innerText = '❤️';
+
+            // تبدأ القلوب من نصف الشاشة (مكان النقرة تقريباً)
+            heart.style.left = '50vw';
+            heart.style.top = '50vh';
+
+            // تحديد اتجاهات عشوائية تطير لها القلوب لتغطي الشاشة
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 60 + 30; // مسافة الطيران vmin
+            const tx = Math.cos(angle) * distance + 'vmin';
+            const ty = Math.sin(angle) * distance + 'vmin';
+
+            heart.style.setProperty('--tx', tx);
+            heart.style.setProperty('--ty', ty);
+
+            // تأخير عشوائي بسيط جداً عشان يعطي شكل طبيعي للحركة
+            heart.style.animationDelay = Math.random() * 0.2 + 's';
+
+            document.body.appendChild(heart);
+
+            // حذف قلوب الانفجار بعد انتهاء الأنميشن
+            setTimeout(() => {
+                heart.remove();
+            }, 1500);
+        }
+    }
+
+    // صنع قلوب صغيرة مستمرة تطلع كل شوي بالخلفية
+    function createBackgroundHeart() {
         const heart = document.createElement('div');
         heart.classList.add('floating-heart');
         heart.innerText = '❤️';
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (Math.random() * 2 + 2) + 's'; // سرعات متفاوتة للقلوب
+        heart.style.animationDuration = (Math.random() * 2 + 3) + 's'; // سرعات متفاوتة
         document.body.appendChild(heart);
         
-        // حذف القلب بعد انتهاء الحركة عشان ما يثقل المتصفح
         setTimeout(() => {
             heart.remove();
         }, 4000);
