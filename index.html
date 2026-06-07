@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سؤال مخصص لحبيبتي</title>
+    <style>
+        /* إعدادات الخلفية العامة */
+        body {
+            background-color: #fff0f5; /* لون وردي ناعم جداً مريح للعين */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            direction: rtl;
+        }
+
+        /* كرت المحتوى الأساسي */
+        .container {
+            text-align: center;
+            background: white;
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0px 15px 35px rgba(214, 51, 132, 0.15);
+            max-width: 85%;
+            width: 340px;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 26px;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        /* حاوية الأزرار */
+        .buttons {
+            margin-top: 20px;
+            position: relative;
+            height: 60px;
+            width: 100%;
+        }
+
+        /* تصميم الأزرار الاحترافي */
+        button {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px; /* أزرار دائرية ناعمة */
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn {
+            background-color: #4caf50; /* أخضر مريح */
+            color: white;
+            right: 15%;
+        }
+
+        #noBtn {
+            background-color: #f44336; /* أحمر ناعم */
+            color: white;
+            left: 15%;
+        }
+
+        img {
+            width: 200px;
+            border-radius: 15px;
+        }
+
+        /* شاشة المفاجأة المخفية */
+        .success-screen {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .success-screen h2 {
+            color: #ff477e;
+            font-size: 28px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        /* تأثير ظهور شاشة النجاح */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* تأثير حركة القلوب الخلفية */
+        .floating-heart {
+            position: fixed;
+            color: #ff477e;
+            font-size: 24px;
+            animation: floatUp 4s linear infinite;
+            opacity: 0;
+            z-index: 999;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainContainer">
+    <img src="https://i.postimg.cc/brv4g7G6/cat-heart.gif" alt="Cute Cat">
+    <h1>تحبيني لو لا؟ 😉</h1>
+    <div class="buttons">
+        <button id="yesBtn" onclick="showLove()">نعم</button>
+        <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">لا</button>
+    </div>
+</div>
+
+<div class="success-screen" id="successScreen">
+    <img src="https://i.postimg.cc/pX9p8Kx1/cat-hug.gif" alt="Cute Hug" style="width: 220px;">
+    <h2>كنت عارف أصلاً! 😉❤️<br>حتى أنا أحبكِ وايد ✨</h2>
+</div>
+
+<script>
+    // وظيفة هرب زر "لا" الذكي
+    function moveButton() {
+        const noBtn = document.getElementById('noBtn');
+        // حسابات تمنع خروج الزر عن حواف الشاشة تماماً
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40);
+        
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+    }
+
+    // وظيفة إظهار المفاجأة الرومانسية عند الضغط على نعم
+    function showLove() {
+        // إخفاء الشاشة الأولى وإظهار شاشة الحب
+        document.getElementById('mainContainer').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+        
+        // تشغيل تأثير المطر من القلوب المتطايرة بالخلفية
+        setInterval(createHeart, 300);
+    }
+
+    // صنع قلوب متحركة عشوائية في الخلفية
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('floating-heart');
+        heart.innerText = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 2 + 2) + 's'; // سرعات متفاوتة للقلوب
+        document.body.appendChild(heart);
+        
+        // حذف القلب بعد انتهاء الحركة عشان ما يثقل المتصفح
+        setTimeout(() => {
+            heart.remove();
+        }, 4000);
+    }
+</script>
+
+</body>
+</html>
