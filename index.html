@@ -76,7 +76,6 @@
             border-radius: 15px;
         }
 
-        /* شاشة النجاح والكلام */
         .success-screen {
             display: none;
             text-align: center;
@@ -97,7 +96,6 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* قلوب الانفجار الكبيرة أول ما تضغط نعم */
         .burst-heart {
             position: fixed;
             color: #ff477e;
@@ -109,17 +107,10 @@
         }
 
         @keyframes explode {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(1.5);
-                opacity: 0;
-            }
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; }
         }
 
-        /* القلوب الصغيرة اللطيفة المستمرة بالخلفية */
         .floating-heart {
             position: fixed;
             color: #ff477e;
@@ -138,7 +129,7 @@
 <body>
 
 <div class="container" id="mainContainer">
-    <img src="https://images2.imgbox.com/39/b5/hNl5qT7V_o.png" alt="Cute Character Start">
+    <img src="IMG_5427.jpeg" alt="Cute Character Start">
     <h1>حفصة تحبيني؟ 😉❤️</h1>
     <div class="buttons">
         <button id="yesBtn" onclick="triggerLoveEffects()">نعم</button>
@@ -147,67 +138,49 @@
 </div>
 
 <div class="success-screen" id="successScreen">
-    <img src="https://images2.imgbox.com/08/96/Zgq088A5_o.png" alt="Cute Character Success">
+    <img src="IMG_5428.jpeg" alt="Cute Character Success">
     <h2>كنت عارف أصلاً! 😉❤️<br>حتى أنا احبك يا قلبي ✨</h2>
 </div>
 
 <script>
-    // وظيفة هروب زر لا
     function moveButton() {
         const noBtn = document.getElementById('noBtn');
         const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40);
         const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40);
-        
         noBtn.style.position = 'fixed';
         noBtn.style.left = x + 'px';
         noBtn.style.top = y + 'px';
     }
 
-    // تشغيل التأثيرات عند الضغط على نعم
     function triggerLoveEffects() {
-        // 1. تشغيل انفجار القلوب القوي فوراً لتغطية الشاشة
         createHeartBurst();
-
-        // 2. إخفاء الشاشة الأولى وإظهار شاشة الكلام بعد ثانيتين من الانفجار
         setTimeout(() => {
             document.getElementById('mainContainer').style.display = 'none';
             document.getElementById('successScreen').style.display = 'block';
-            
-            // 3. تشغيل القلوب الصغيرة الهادئة بالخلفية باستمرار
             setInterval(createBackgroundHeart, 400);
         }, 1200);
     }
 
-    // تأثير انفجار قلوب كثيرة تغطي الشاشة وتختفي بسرعه
     function createHeartBurst() {
-        const totalHearts = 60; // عدد القلوب في الانفجار
+        const totalHearts = 70; // عدد قلوب الانفجار
         for (let i = 0; i < totalHearts; i++) {
             const heart = document.createElement('div');
             heart.classList.add('burst-heart');
             heart.innerText = '❤️';
-
-            // تبدأ القلوب من منتصف الشاشة تقريباً لتنتشر للخارج
             heart.style.left = '50vw';
             heart.style.top = '50vh';
-
             const angle = Math.random() * Math.PI * 2;
-            const distance = Math.random() * 60 + 30; // مسافة الانتشار لتغطية الشاشة كامله
+            const distance = Math.random() * 60 + 30;
             const tx = Math.cos(angle) * distance + 'vmin';
             const ty = Math.sin(angle) * distance + 'vmin';
-
             heart.style.setProperty('--tx', tx);
             heart.style.setProperty('--ty', ty);
             heart.style.animationDelay = Math.random() * 0.1 + 's';
-
             document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 1500);
+            setTimeout(() => { heart.remove(); }, 1500);
         }
     }
 
-    // صنع قلوب صغيرة مستمرة تطلع كل شوي بالخلفية
     function createBackgroundHeart() {
         const heart = document.createElement('div');
         heart.classList.add('floating-heart');
@@ -215,10 +188,7 @@
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
         document.body.appendChild(heart);
-        
-        setTimeout(() => {
-            heart.remove();
-        }, 4000);
+        setTimeout(() => { heart.remove(); }, 4000);
     }
 </script>
 
